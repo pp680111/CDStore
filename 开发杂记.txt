@@ -1,0 +1,41 @@
+目标：开发一个cd店销售系统
+功能要求暂列如下
+一个后台管理页面
+    cd列表
+    添加cd
+    修改cd信息
+    下架cd
+一个前台销售页面
+    美观的cd列表页面
+        要有筛选功能，比如说在查看cd列表的时候能够像jd商品列表一样点击某个品牌就只显示这个牌子的商品一样，在页面上显示一些筛选信息
+        在列表界面就直接可以添加到购物车
+    一个cd详情页面
+        在详情里可以对cd的歌曲进行试听
+    要有搜索功能
+    一个购物车
+    随便写一个结算页面
+
+数据库
+    cd_list
+        id int unsigned auto_increment primary key
+        name varchar(255) not null,
+        artist varchar(255) not null,
+        content text not null,
+        amount int unsigned not null default 0,
+        create_time datetime,
+        update_time datetime,
+    song_list
+        id int unsigned auto_increment primary key
+        name varchar(255) not null,
+        artist varchar(255) not null,
+        cd_id int unsigned foreign key,
+    sales_log
+        id int unsigned auto_increment primary key
+        cd_id int unsigned auto_increment foreign key not null
+        time datetime not null
+
+前台页面的话看看能不能网上先找个模板，因为自己做前台实在是麻烦，而且我这次想要用原生php语言专注于写后台
+
+    
+
+    
