@@ -1,9 +1,10 @@
 目标：开发一个cd店销售系统
 功能要求暂列如下
 一个后台管理页面
-    
     cd列表
     添加cd
+        添加cd列表这里要有一个添加cd里面曲目信息的功能，有一个可以增加或减少行数的表格，根据曲子数量自己选择
+        可以给曲目添加试听文件
     修改cd信息
     下架cd
     销售记录
@@ -16,25 +17,47 @@
     要有搜索功能
     一个购物车
     随便写一个结算页面
-数据库
-    cd_list
-        id int unsigned auto_increment primary key
-        name varchar(255) not null,
-        artist varchar(255) not null,
-        content text not null,
-        amount int unsigned not null default 0,
-        create_time datetime,
-        update_time datetime,
-    song_list
-        id int unsigned auto_increment primary key
-        name varchar(255) not null,
-        artist varchar(255) not null,
-        cd_id int unsigned foreign key,
-    sales_log
-        id int unsigned auto_increment primary key
-        cd_id int unsigned auto_increment foreign key not null
-        time datetime not null
 
+后台管理页面尽量利用ajax来使用户第一次打开网页的时候加载的数据少一点
+
+
+数据库
+create database cdstore;
+use cdstore;
+create table cd_list
+(
+id int unsigned auto_increment primary key,
+name varchar(255) not null,
+artist varchar(255) not null,
+content text not null,
+amount int unsigned not null default 0,
+create_time datetime,
+update_time datetime
+);
+
+create table song_list
+(
+id int unsigned auto_increment primary key,
+name varchar(255) not null,
+artist varchar(255) not null,
+cd_id int unsigned,
+foreign key(cd_id) references cd_list(id)
+);
+
+create table order_list
+(
+id int unsigned auto_increment primary key,
+create_time datetime
+);
+
+create table sales_log
+(
+id int unsigned auto_increment primary key,
+order_id int unsigned,
+cd_id int unsigned not null,
+foreign key(cd_id) references cd_list(id),
+foreign key(order_id) references order_list(id)
+);
 前台页面的话看看能不能网上先找个模板，因为自己做前台实在是麻烦，而且我这次想要用原生php语言专注于写后台
 
     
