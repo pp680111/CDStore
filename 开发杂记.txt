@@ -5,9 +5,13 @@
     添加cd
         添加cd列表这里要有一个添加cd里面曲目信息的功能，有一个可以增加或减少行数的表格，根据曲子数量自己选择
         可以给曲目添加试听文件
+        直接在cd列表的右上角有一个添加的按键
+    查看cd信息
     修改cd信息
+        查看和修改做成一个页面，直接点击cd名进去就是显示cd信息，但是cd所有的信息都是disabled的，在cd表格的行末有一个修改按钮，点进去和显示cd信息的页面一样，但是所有文本框都是可以编辑的
     下架cd
     销售记录
+        销售记录的记录方式是假设用户每一次购买都会产生一张order，然后一张order里面可以有多张cd
 一个前台销售页面
     美观的cd列表页面
         要有筛选功能，比如说在查看cd列表的时候能够像jd商品列表一样点击某个品牌就只显示这个牌子的商品一样，在页面上显示一些筛选信息
@@ -29,7 +33,7 @@ create table cd_list
 id int unsigned auto_increment primary key,
 name varchar(255) not null,
 artist varchar(255) not null,
-content text not null,
+presentation text not null,
 amount int unsigned not null default 0,
 create_time datetime,
 update_time datetime

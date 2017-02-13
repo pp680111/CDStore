@@ -3,7 +3,30 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
-            Great
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#cd_list" data-toggle="tab">CD列表</a></li>
+                <li><a href="#sales_log" data-toggle="tab">销售记录</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active list" id="cd_list">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>名称</th>
+                                <th>艺术家</th>
+                                <th>介绍</th>
+                                <th>库存数量</th>
+                                <th>创建时间</th>
+                                <th>最后修改信息时间</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="sales_log">
+                    
+                </div>
+            </div>
         </div>
     </div>
 </div>
