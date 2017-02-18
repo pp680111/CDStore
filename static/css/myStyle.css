@@ -1,4 +1,17 @@
+body
+{
+    background: url('/static/img/bg.jpg');
+}
 .list
 {
     padding: 0px 10px;
+}
+.addCD
+{
+    margin: 5px;
+    float: right;
+}
+.content
+{
+    background-color: white;
 }
