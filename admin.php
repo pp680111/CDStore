@@ -29,7 +29,7 @@
                                 foreach ($cd_list as $row) {
                                     echo '<tr>';
                                     echo "<td>" . $row['id'] . '</td>';
-                                    echo "<td><a href='cd_detail.php'>" . $row['name'] . '</a></td>';
+                                    echo "<td><a href='cd_detail.php?id={$row['id']}'>" . $row['name'] . '</a></td>';
                                     echo '<td>' . $row['artist'] . '</td>';
                                     echo '<td>' . $row['presentation'] . '</td>';
                                     echo '<td>' . $row['amount'] . '</td>';
