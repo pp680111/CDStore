@@ -1,5 +1,5 @@
-<?php include_once("header.php");?>
-
+<?php include_once("header.php"); ?>
+<?php include_once('CDStore_fns.php'); ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1 content">
@@ -25,7 +25,19 @@
                         </thead>
                         <tbody>
                             <?php
-                                
+                                $cd_list = get_cd_list();
+                                foreach ($cd_list as $row) {
+                                    echo '<tr>';
+                                    echo '<td>' . $row['id'] . '</td>';
+                                    echo '<td>' . $row['name'] . '</td>';
+                                    echo '<td>' . $row['artist'] . '</td>';
+                                    echo '<td>' . $row['presentation'] . '</td>';
+                                    echo '<td>' . $row['amount'] . '</td>';
+                                    echo '<td>' . $row['create_time'] . '</td>';
+                                    echo '<td>' . $row['update_time'] . '</td>';
+                                    echo '<td>' . '占空' . '</td>';
+                                    echo '</tr>';
+                                }
                             ?>
                         </tbody>
                     </table>
