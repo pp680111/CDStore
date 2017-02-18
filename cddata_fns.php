@@ -17,4 +17,9 @@
         return $result;
 
     }
+
+    function get_cd()
+    {
+        
+    }
 ?>

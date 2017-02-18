@@ -28,8 +28,8 @@
                                 $cd_list = get_cd_list();
                                 foreach ($cd_list as $row) {
                                     echo '<tr>';
-                                    echo '<td>' . $row['id'] . '</td>';
-                                    echo '<td>' . $row['name'] . '</td>';
+                                    echo "<td>" . $row['id'] . '</td>';
+                                    echo "<td><a href='cd_detail.php'>" . $row['name'] . '</a></td>';
                                     echo '<td>' . $row['artist'] . '</td>';
                                     echo '<td>' . $row['presentation'] . '</td>';
                                     echo '<td>' . $row['amount'] . '</td>';
@@ -50,4 +50,6 @@
     </div>
 </div>
 
+<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
 <?php include_once("footer.php");?>
