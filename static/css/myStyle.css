@@ -15,6 +15,7 @@ body
 {
     background-color: white;
     padding-top: 10px;
+    margin-bottom: 20px;
 }
 .container-fluid
 {
@@ -29,4 +30,8 @@ body
 .detail_layout
 {
     list-style: none;
+}
+.song_list_controller
+{
+    float:right;
 }

@@ -9,7 +9,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active list" id="cd_list">
-                    <button class="btn btn-default addCD"><a href="/view/addCD.php">添加新CD</a></button>
+                    <a href="add_CD.html" class="btn btn-default addCD">添加新CD</a>
                     <table class="table table-hover">
                         <thead>
                             <tr>

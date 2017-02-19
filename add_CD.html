@@ -1,0 +1,73 @@
+<?php 
+    require_once('header.php');
+?>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 content">
+            <div class="detail">
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <label>专辑封面</label>
+                        <input type="file" accept="image/png,image/jpeg" id="cd_cover" name="cover">
+                    </div>
+                    <div class="form-group">
+                        <label>专辑名称</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>艺术家</label>
+                        <input type="text" name="artist" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>库存数</label>
+                        <input type="text" name="amount" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>CD介绍</label>
+                        <input type="text" name="presentation" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>曲目列表</label>
+                        <div class="song_list_controller">
+                            <span class="glyphicon glyphicon-plus" id="plus"></span>
+                            <span class="glyphicon glyphicon-minus" id="minus"></span>
+                        </div>
+                        <table class="table" id="song_list">
+                            <thead>
+                                <th>曲目顺序</th>
+                                <th>曲名</th>
+                                <th>艺术家</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input type="text" name="name[]" class="form-control"></td>
+                                    <td><input type="text" name="artist[]" class="form-control"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>  
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script>
+    $("#plus").click(function(){
+        var newRow = '<tr><td>' + (parseInt($("#song_list > tbody > tr:last > td:first").text()) + 1) + '</td>';
+        newRow += '<td><input type="text" name="name[]" class="form-control"></td>';
+        newRow += '<td><input type="text" name="artist[]" class="form-control"></td></tr>';
+        $("#song_list > tbody > tr:last").after(newRow);
+    });
+
+    $("#minus").click(function(){
+        if($("#song_list > tbody > tr").length <= 1)
+            alert('曲目数量不得少于1');
+        else $("#song_list > tbody > tr:last").remove();
+    });
+</script>
+<?php require_once('footer.php'); ?>
