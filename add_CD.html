@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1 content">
             <div class="detail">
-                <form method="POST" action="add_CD.php">
+                <form method="post" action="add_CD.php" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>专辑封面</label>
                         <input type="file" accept="image/png,image/jpeg" id="cd_cover" name="cover">
@@ -43,8 +43,8 @@
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td><input type="text" name="name[]" class="form-control" required></td>
-                                    <td><input type="text" name="artist[]" class="form-control" required></td>
+                                    <td><input type="text" name="song_name[]" class="form-control" required></td>
+                                    <td><input type="text" name="song_artist[]" class="form-control" required></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -62,8 +62,8 @@
 <script>
     $("#plus").click(function(){
         var newRow = '<tr><td>' + (parseInt($("#song_list > tbody > tr:last > td:first").text()) + 1) + '</td>';
-        newRow += '<td><input type="text" name="name[]" class="form-control" required></td>';
-        newRow += '<td><input type="text" name="artist[]" class="form-control" required></td></tr>';
+        newRow += '<td><input type="text" name="song_name[]" class="form-control" required></td>';
+        newRow += '<td><input type="text" name="song_artist[]" class="form-control" required></td></tr>';
         $("#song_list > tbody > tr:last").after(newRow);
     });
 

@@ -11,7 +11,7 @@
                 <ul class="detail_layout">
                     <li>
                         <h4>专辑封面</h4>
-                        <img src="static/img/<?php echo $cd_detail['id'] ?>.jpg" alt="图片缺失" width="200px" height="200px">
+                        <img src="static/img/cover/<?php echo $cd_detail['id'] ?>.jpg" alt="图片缺失" width="200px" height="200px">
                     </li>
                     <li>
                         <h4>专辑名</h4>
