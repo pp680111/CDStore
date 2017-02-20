@@ -93,7 +93,6 @@
     {
         $("#delete_cd_modal").modal('show');
         $("#confirm_delete").click(function(){
-            alert('Great');
             $.ajax({
                 url:'delete_cd.php',
                 type:'post',
@@ -105,9 +104,13 @@
                         $("#message").modal('show');
                         $("#message_title").text('删除成功');
                     }
+                    else{
+                        $("#message").modal('show');
+                        $("#message_title").text('删除失败');
+                    }
                 },
                 error:function(){
-
+                    alert('删除请求出错了');
                 }
             });
         });

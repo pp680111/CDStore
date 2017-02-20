@@ -1,7 +1,6 @@
 <?php 
     require_once('CDStore_fns.php');
-    print_r($_POST);
-    echo '<br>';
+    
     if(($validate_result = add_cd_validate($_POST)) !== true)
     {
         //显示数据校验错误信息
