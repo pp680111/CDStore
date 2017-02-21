@@ -21,5 +21,8 @@
     }
     $db->setAttribute(PDO::ATTR_AUTOCOMMIT,1);
     
+    //删除专辑封面图片
+    unlink('static/img/cover/' . $_POST['cd_id'] . '.jpg');
+
     echo json_encode($retValue);
 ?>

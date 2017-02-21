@@ -9,7 +9,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active list" id="cd_list">
-                    <a href="add_CD.html" class="btn btn-default addCD">添加新CD</a>
+                    <a href="add_cd.html" class="btn btn-default addCD">添加新CD</a>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -33,7 +33,7 @@
                                     echo '<td>' . $row['amount'] . '</td>';
                                     echo '<td>' . $row['create_time'] . '</td>';
                                     echo '<td>' . $row['update_time'] . '</td>';
-                                    echo '<td>' . "<a href='#' onclick='delete_cd({$row['id']})'>删除</a>" . '</td>';
+                                    echo '<td>' . "<a href='#' onclick='delete_cd({$row['id']})'>删除</a>&emsp;<a href='modify_cd.html?cd_id={$row['id']}'>修改</a></td>";
                                     echo '</tr>';
                                 }
                             ?>

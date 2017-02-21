@@ -1,32 +1,35 @@
-<?php 
+<?php
     require_once('header.php');
+    require_once('CDStore_fns.php');
+    $cd_data = get_cd_detail($_REQUEST['cd_id']);
 ?>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1 content">
             <div class="detail">
-                <form method="post" action="add_cd.php" enctype="multipart/form-data" id="myForm">
+                <form method="post" action="" enctype="multipart/form-data" id="myForm">
+                    <input type="hidden" name="cd_id" value="<?php echo $_REQUEST['cd_id'];?>"/>
                     <div class="form-group">
                         <label>专辑封面</label>
                         <input type="file" accept="image/png,image/jpeg" id="cd_cover" name="cover">
-                        <img src="" width="200px" height="200px" id="cd_cover_preview" alt="">
+                        <img src="static/img/cover/<?php echo $cd_data['id'];?>.jpg" width="200px" height="200px" id="cd_cover_preview" alt="">
                     </div>
                     <div class="form-group">
                         <label>专辑名称</label>
-                        <input type="text" name="name" class="form-control" required>
+                        <input type="text" name="name" class="form-control" required value="<?php echo $cd_data['name'] ?>">
                     </div>
                     <div class="form-group">
                         <label>艺术家</label>
-                        <input type="text" name="artist" class="form-control" required>
+                        <input type="text" name="artist" class="form-control" required value="<?php echo $cd_data['artist'] ?>">
                     </div>
                     <div class="form-group">
                         <label>库存数</label>
-                        <input type="text" name="amount" class="form-control" required>
+                        <input type="text" name="amount" class="form-control" required value="<?php echo $cd_data['amount'] ?>">
                     </div>
                     <div class="form-group">
                         <label>CD介绍</label>
-                        <input type="text" name="presentation" class="form-control">
+                        <input type="text" name="presentation" class="form-control" value="<?php echo $cd_data['presentation'] ?>">
                     </div>
                     <div class="form-group">
                         <label>曲目列表</label>
@@ -41,11 +44,16 @@
                                 <th>艺术家</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><input type="text" name="song_name[]" class="form-control" required></td>
-                                    <td><input type="text" name="song_artist[]" class="form-control" required></td>
-                                </tr>
+                                <?php
+                                    for($i = 0;$i < count($cd_data['song_list']);$i++)
+                                    {
+                                        echo "<tr>";
+                                        echo "<td>$i</td>";
+                                        echo "<td><input type='text' name='song_name[]' class='form-control' required value='{$cd_data['song_list'][$i]['name']}'></td>";
+                                        echo "<td><input type='text' name='song_artist[]' class='form-control' required value='{$cd_data['song_list'][$i]['artist']}'></td>";
+                                        echo "</tr>";
+                                    };
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -56,7 +64,6 @@
         </div>
     </div>
 </div>
-
 <!-- modal -->
 <div class="modal fade" role="dialog" id="message">
     <div class="modal-dialog">
@@ -109,12 +116,12 @@
             $("#cd_cover_preview").attr('src',e.target.result);
         }
         reader.readAsDataURL(img_file);
-    })
+    });
 
     $("#submit_data").click(function(){
         var formdata = new FormData(document.getElementById('myForm'));
         $.ajax({
-            url:'add_cd.php',
+            url:'modify_cd.php',
             type:'post',
             dataType:'json',
             data:formdata,
@@ -139,4 +146,4 @@
         });
     })
 </script>
-<?php require_once('footer.php'); ?>
+<?php require_once('footer.php');?>
