@@ -20,6 +20,6 @@
         $retValue['status'] = 'error';
     }
     $db->setAttribute(PDO::ATTR_AUTOCOMMIT,1);
-    // return var_dump(json_encode($retValue));
+    
     echo json_encode($retValue);
 ?>

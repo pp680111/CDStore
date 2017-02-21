@@ -1,10 +1,12 @@
 <?php 
     require_once('CDStore_fns.php');
-    
+    $retValue = array();
     if(($validate_result = add_cd_validate($_POST)) !== true)
     {
         //显示数据校验错误信息
-        echo $validate_result;
+        $retValue['status'] = 'failed';
+        $retValue['message'] = $validate_result;
+        echo json_encode($retValue);
         die();
     }
     
@@ -52,8 +54,11 @@
     catch(PDOException $e)
     {
         //输出错误数据
-        echo $e->getMessage();
+        $retValue['message'] = $e->getMessage();
+        $retValue['status'] = 'failed';
+        echo json_encode($retValue);
         $db->rollback();
+        exit;
     }
     $db -> setAttribute(PDO::ATTR_AUTOCOMMIT,1);
 
@@ -61,7 +66,9 @@
 
     if(($validate_result = cover_img_validate($_FILES['cover'])) !== true)
     {
-        echo $validate_result;
+        $retValue['status'] = 'failed';
+        $retValue['message'] = $validate_result;
+        echo json_encode($retValue);
         exit;
     }
 
@@ -70,12 +77,19 @@
     {
         if(!move_uploaded_file($_FILES['cover']['tmp_name'],'static/img/cover/'.$cd_id.'.jpg'))
         {
-            echo '移动文件错误';
+            $retValue['status'] = 'failed';
+            $retValue['message'] = '无法保存封面文件';
+            echo json_encode($retValue);
             exit;
         }
     }
     else{
-        echo '该文件是非法文件';
+        $retValue['status'] = 'failed';
+        $retValue['message'] = '封面文件是非法文件';
+        echo json_encode($retValue);
+        exit;
     }
-
+    $retValue['status'] = 'success';
+    $retValue['message'] = '唱片数据保存成功';
+    echo json_encode($retValue);
 ?>

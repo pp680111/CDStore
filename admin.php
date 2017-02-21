@@ -16,7 +16,6 @@
                                 <th>id</th>
                                 <th>名称</th>
                                 <th>艺术家</th>
-                                <th>介绍</th>
                                 <th>库存数量</th>
                                 <th>创建时间</th>
                                 <th>最后修改信息时间</th>
@@ -31,7 +30,6 @@
                                     echo "<td>" . $row['id'] . '</td>';
                                     echo "<td><a href='cd_detail.php?id={$row['id']}'>" . $row['name'] . '</a></td>';
                                     echo '<td>' . $row['artist'] . '</td>';
-                                    echo '<td>' . $row['presentation'] . '</td>';
                                     echo '<td>' . $row['amount'] . '</td>';
                                     echo '<td>' . $row['create_time'] . '</td>';
                                     echo '<td>' . $row['update_time'] . '</td>';
@@ -80,7 +78,7 @@
                 <h4 class="modal-title" id="message_title"></h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="message_confirm">关闭</button>
             </div>
         </div>
     </div>
@@ -103,10 +101,12 @@
                     {
                         $("#message").modal('show');
                         $("#message_title").text('删除成功');
+                        $("#message_confirm").click(function(){location.reload()});
                     }
                     else{
                         $("#message").modal('show');
                         $("#message_title").text('删除失败');
+                        $("#message_confirm").click(function(){location.reload()});
                     }
                 },
                 error:function(){

@@ -22,7 +22,6 @@
     {
         if($data['error'] > 0)
             return '封面图片上传发生错误';
-        echo $data['type'];
         if(!($data['type'] == 'image/jpeg' || $data['type'] == 'image/png'))
             return '文件类型错误，请选择png或jpg图片';
         return true;
