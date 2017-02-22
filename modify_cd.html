@@ -45,12 +45,12 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    for($i = 0;$i < count($cd_data['song_list']);$i++)
+                                    for($i = 1;$i <= count($cd_data['song_list']);$i++)
                                     {
                                         echo "<tr>";
                                         echo "<td>$i</td>";
-                                        echo "<td><input type='text' name='song_name[]' class='form-control' required value='{$cd_data['song_list'][$i]['name']}'></td>";
-                                        echo "<td><input type='text' name='song_artist[]' class='form-control' required value='{$cd_data['song_list'][$i]['artist']}'></td>";
+                                        echo "<td><input type='text' name='song_name[]' class='form-control' required value='{$cd_data['song_list'][$i-1]['name']}'></td>";
+                                        echo "<td><input type='text' name='song_artist[]' class='form-control' required value='{$cd_data['song_list'][$i-1]['artist']}'></td>";
                                         echo "</tr>";
                                     };
                                 ?>
