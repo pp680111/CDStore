@@ -21,16 +21,4 @@
 最上面的zindex是3，第二层是2，最下面的是1
 然后最上面的大小最大，大小逐层递减
 2017/2/23
-1   top: 50px;left:0%;width: 200px;height: 200px;z-index: 1;
-2   top: 25px;left:16%;width: 250px;height: 250px;z-index: 2;
-3   top: 0px;left:37%;width: 300px;height: 300px;z-index: 3;
-4   top: 25px;left:63%;width: 250px;height: 250px;z-index: 2;
-5   top: 50px;left:85%;width: 200px;height: 200px;z-index: 1;
-
-获取所有使用了myslide类的div对象
-对每个div调用Slide构造函数
-构造函数：
-将div对象参数保存到本身
-设置状态参数列表
-保存里div里面的所有li到对象本身
-设置前进后退按钮的点击事件函数
+前台页面做了挺多的，明天把筛选查看再完善一下就可以开始着手做购买和购物车功能了
