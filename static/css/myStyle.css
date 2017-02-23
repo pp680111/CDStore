@@ -35,3 +35,42 @@ body
 {
     float:right;
 }
+.my_slide
+{
+    width: 80%;
+    height: 300px;
+    margin: 100px auto;
+}
+.my_slide > ul
+{
+    position:relative;
+    width: 90%;
+    height: 300px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.my_slide > ul > li{
+    position:absolute;
+    list_style:none;
+    width: 300px;
+    height: 300px;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+
+}
+.my_slide > ul > li > img{
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+.my_slide:nth-child(1)
+{
+    top: 50%;
+}
+.my_slide:nth-child(2)
+{
+    top: 50%;
+    left: 100%;
+}

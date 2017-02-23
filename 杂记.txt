@@ -15,3 +15,14 @@
 销售记录的显示放到明天把
 2017/2/22
 销售记录先放着，我想把前端的页面做好先
+图片轮播的效果实现思路
+每个图片的position设置为relative，相对父元素定位
+我设定一次只有5张图片在前台轮播
+最上面的zindex是3，第二层是2，最下面的是1
+然后最上面的大小最大，大小逐层递减
+2017/2/23
+1   top: 50px;left:0%;width: 200px;height: 200px;z-index: 1;
+2   top: 25px;left:16%;width: 250px;height: 250px;z-index: 2;
+3   top: 0px;left:37%;width: 300px;height: 300px;z-index: 3;
+4   top: 25px;left:63%;width: 250px;height: 250px;z-index: 2;
+5   top: 50px;left:85%;width: 200px;height: 200px;z-index: 1;
