@@ -1,4 +1,8 @@
-<?php require_once('CDStore_fns.php'); ?>
+<?php 
+    require_once('CDStore_fns.php');
+    $recommend_list = get_recommend_list();
+    $cd_list = get_cd_list();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,16 +21,46 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1 content">
+                <h2>今日推荐</h2>
                 <div class="my_slide">
                     <span class="glyphicon glyphicon-backward"></span></section>
 	                <span class="glyphicon glyphicon-forward"></span></section>
                     <ul>
-                        <li style="top: 50px;left:0%;width: 200px;height: 200px;"><img src="/static/img/cover/1.jpg" width="300px" height="300px"></li>
-                        <li style="top: 25px;left:20%;width: 250px;height: 250px;"><img src="/static/img/cover/3.jpg" width="300px" height="300px"></li>
-                        <li style="top: 0px;left:40%;width: 300px;height: 300px;"><img src="/static/img/cover/4.jpg" width="300px" height="300px"></li>
-                        <li style="top: 25px;left:60%;width: 250px;height: 250px;"><img src="/static/img/cover/6.jpg" width="300px" height="300px"></li>
-                        <li style="top: 50px;left:80%;width: 200px;height: 200px;"><img src="/static/img/cover/7.jpg" width="300px" height="300px"></li>
+                        <?php 
+                            foreach($recommend_list as $value)
+                            {
+                                echo "<li><img src='/static/img/cover/{$value[0]}.jpg' width='300px' height='300px'></li>";
+                            }
+                        ?>
                     </ul>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-2">
+                        
+                    </div>
+                    <div class="col-xs-10">
+                        <h3>唱片列表</h3>
+                        <table class="table cd_table">
+                            <tbody>
+                                <?php
+                                    $i = 0;
+                                    echo '<tr>';
+                                    foreach($cd_list as $cd)
+                                    {
+                                        if($i == 4)
+                                        {
+                                            echo '</tr><tr>';
+                                            $i = 0;
+                                        }
+                                        echo "<td><img src='/static/img/cover/{$cd['id']}.jpg' width='200px' height='200px'><p>{$cd['name']}</p><p>{$cd['artist']}</p></td>";
+                                        $i++;
+                                    }
+                                    echo '</tr>';
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

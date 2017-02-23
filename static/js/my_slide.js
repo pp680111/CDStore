@@ -26,13 +26,13 @@
         //比如说没有.bind(this)的话，点击事件回调函数里面的this就是span:nth-child(1)这个元素本身而不是使用了Slide函数构造的对象，会出现找不到stop等函数的错误
         this.ele.children('span:nth-child(1)').click(function(){
             this.stop();
-            this.prev();
+            this.next();
             this.play();
         }.bind(this));
 
         this.ele.children('span:nth-child(2)').click(function(){
             this.stop();
-            this.next();
+            this.prev();
             this.play();
         }.bind(this));
 

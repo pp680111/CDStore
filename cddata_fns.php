@@ -40,5 +40,10 @@
         return $result;
     }
 
-    
+    function get_recommend_list()
+    {
+        $dbh = get_db_connection();
+        $stmt = $dbh -> query('select id from cd_list order by rand() limit 5');
+        return $stmt -> fetchAll(PDO::FETCH_NUM);
+    }
 ?>
