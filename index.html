@@ -29,7 +29,7 @@
                         <?php 
                             foreach($recommend_list as $value)
                             {
-                                echo "<li><img src='/static/img/cover/{$value[0]}.jpg' width='300px' height='300px'></li>";
+                                echo "<li><a href='cd_detail.php?id={$value[0]}'><img src='/static/img/cover/{$value[0]}.jpg' width='300px' height='300px'></a></li>";
                             }
                         ?>
                     </ul>
@@ -37,7 +37,11 @@
 
                 <div class="row">
                     <div class="col-xs-2">
-                        
+                        <ul class="list-group order_controll">
+                            <li class="list-group-item" id="sort_by_name">按专辑名排序</li>
+                            <li class="list-group-item" id="sort_by_artist">按艺术家名排序</li>
+                            <li class="list-group-item" id="sort_by_create_time">按上架时间排序</li>
+                        </ul>
                     </div>
                     <div class="col-xs-10">
                         <h3>唱片列表</h3>
@@ -53,7 +57,7 @@
                                             echo '</tr><tr>';
                                             $i = 0;
                                         }
-                                        echo "<td><img src='/static/img/cover/{$cd['id']}.jpg' width='200px' height='200px'><p>{$cd['name']}</p><p>{$cd['artist']}</p></td>";
+                                        echo "<td><a href='cd_detail.php?id={$cd['id']}'><img src='/static/img/cover/{$cd['id']}.jpg' width='200px' height='200px'></a><p>{$cd['name']}</p><p>{$cd['artist']}</p></td>";
                                         $i++;
                                     }
                                     echo '</tr>';
@@ -72,6 +76,22 @@
     <script src="/static/js/my_slide.js"></script>
     <script>
         $(".my_slide").mySlide({speed:500});
+
+        $(".order_controll > li").click(function(){
+             $.ajax({
+                url:'get_sorted_list.php',
+                type:'post',
+                data:{'option':$(this).attr('id').substring(8)},
+                dataType:'json',
+                success:function(data)
+                {
+                    
+                },
+                error:function(){
+                    alert('网络异常，请稍后再试');
+                }
+            });
+        })
     </script>
 </body>
 </html>

@@ -46,4 +46,11 @@
         $stmt = $dbh -> query('select id from cd_list order by rand() limit 5');
         return $stmt -> fetchAll(PDO::FETCH_NUM);
     }
+
+    function get_sorted_list($option)
+    {
+        $db = get_db_connection();
+        $stmt = $db -> query('select * from cd_list order by ' . $option . ' asc');
+        return $stmt->fetchAll(PDO::FETCH_NAMED);
+    }
 ?>

@@ -60,7 +60,7 @@ body
     padding: 0;
 
 }
-.my_slide > ul > li > img{
+.my_slide > ul > li > a > img{
     width: 100%;
     height: 100%;
     vertical-align: middle;
@@ -77,4 +77,8 @@ body
 .cd_table
 {
     text-align: center;
+}
+.order_controll
+{
+    margin-top: 80px;
 }
