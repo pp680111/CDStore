@@ -50,9 +50,9 @@
     function get_sorted_list($option,$page_index,$page_size)
     {
         $db = get_db_connection();
-        if(isset ($option))
-            $stmt = $db -> query('select * from cd_list order by ' . $option . ' asc limit ' . $page_index . ',' . $page_size);
-        else $stmt = $db -> query('select * from cd_list limit ' . $page_index . ',' . $page_size);
+        if(!empty($option))
+            $stmt = $db -> query('select * from cd_list order by ' . $option . ' asc limit ' . $page_index * $page_size . ',' . $page_size);
+        else $stmt = $db -> query('select * from cd_list limit ' . $page_index * $page_size . ',' . $page_size);
         return $stmt->fetchAll(PDO::FETCH_NAMED);
     }
 ?>

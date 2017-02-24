@@ -67,51 +67,34 @@
         
         var page_index = 0;
         var page_size = 12;
+        var option = '';
 
-        
-
-        var display_cd_table = function(data){
-            var content = '<tr>';
-            $.each(data,function(i,obj){
-                if(i % 4 == 0 && i != 0)
-                    content += "</tr><tr>";
-                content += "<td><a href='cd_detail?id=" + obj.id + "'><img src='/static/img/cover/" + obj.id + ".jpg' width='200px' height='200px'></a><p>" + obj.name + "</p><p>" + obj.artist + "</p></td>";
-            });
-            content += "</tr>";
-            $("#cd_table > tbody").html(content);
-        }
-
-        $(".order_controll > li").click(function(){
-             $.ajax({
-                url:'get_sorted_list.php',
-                type:'post',
-                data:{'option':$(this).attr('id').substring(8),'page_index':page_index,'page_size':page_size},
-                dataType:'json',
-                success:function(data)
-                {
-                    display_cd_table(data);
-                },
-                error:function(){
-                    alert('网络异常，请稍后再试');
-                }
-            });
-        })
-
-        $(function(){
+        function get_cd_table()
+        {
             $.ajax({
                 url:'get_sorted_list.php',
                 type:'post',
-                data:{'page_index':page_index,'page_size':page_size},
+                data:{'option':option,'page_index':page_index,'page_size':page_size},
                 dataType:'json',
                 success:function(data)
                 {
-                    display_cd_table(data);
+                    var content = '<tr>';
+                    $.each(data,function(i,obj){
+                        if(i % 4 == 0 && i != 0)
+                            content += "</tr><tr>";
+                        content += "<td><a href='cd_detail?id=" + obj.id + "'><img src='/static/img/cover/" + obj.id + ".jpg' width='200px' height='200px'></a><p>" + obj.name + "</p><p>" + obj.artist + "</p></td>";
+                    });
+                    content += "</tr>";
+                    $("#cd_table > tbody").html(content);
                 },
                 error:function(){
                     alert('网络异常，请稍后再试');
                 }
             });
-            //获取分页导航条
+        }
+
+        function get_page_nav()
+        {
             $.ajax({
                 url:'get_page_nav.php',
                 type:'post',
@@ -127,13 +110,26 @@
                     $("#page_nav > ul").html(content);
 
                     $("#page_nav > ul > li:not(:first,:last)").click(function(){
-
+                        page_index = $(this).text();
+                        get_cd_table({'option':option,'page_index':page_index,'page_size':page_size});
+                        get_page_nav();
                     })
                 },
                 error:function(){
                     alert('网络异常，请稍后再试');
                 }
             })
+        }
+
+        $(".order_controll > li").click(function(){
+            option = $(this).attr('id').substring(8)
+            get_cd_table();
+        })
+
+        $(function(){
+            get_cd_table();
+            //获取分页导航条
+            get_page_nav();
         })
     </script>
 </body>
