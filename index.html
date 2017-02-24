@@ -48,6 +48,17 @@
                             <tbody>
                             </tbody>
                         </table>
+                        <nav aria-label="Page navigation" class="page_nav">
+                            <ul class="pagination pagination-lg">
+                                <li><a href="#" aria-label="Prev"><span aria-hidden="true">&laquo;</span></a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#" aria-label="Prev"><span aria-hidden="true">&raquo;</span></a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -61,6 +72,8 @@
     <script>
         $(".my_slide").mySlide({speed:500});
         
+        var page_index = 0;
+
         var display_cd_table = function(data){
             var content = '<tr>';
             $.each(data,function(i,obj){
@@ -76,7 +89,7 @@
              $.ajax({
                 url:'get_sorted_list.php',
                 type:'post',
-                data:{'option':$(this).attr('id').substring(8)},
+                data:{'option':$(this).attr('id').substring(8),'page_index':page_index},
                 dataType:'json',
                 success:function(data)
                 {
@@ -92,6 +105,7 @@
             $.ajax({
                 url:'get_sorted_list.php',
                 type:'post',
+                data:{'page_index':page_index},
                 dataType:'json',
                 success:function(data)
                 {

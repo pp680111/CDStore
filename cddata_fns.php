@@ -47,12 +47,12 @@
         return $stmt -> fetchAll(PDO::FETCH_NUM);
     }
 
-    function get_sorted_list($option)
+    function get_sorted_list($option,$page_index,$page_size)
     {
         $db = get_db_connection();
         if(isset ($option))
-            $stmt = $db -> query('select * from cd_list order by ' . $option . ' asc');
-        else $stmt = $db -> query('select * from cd_list');
+            $stmt = $db -> query('select * from cd_list order by ' . $option . ' asc limit ' . $page_index . ',' . $page_size);
+        else $stmt = $db -> query('select * from cd_list limit ' . $page_index . ',' . $page_size);
         return $stmt->fetchAll(PDO::FETCH_NAMED);
     }
 ?>
