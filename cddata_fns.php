@@ -53,6 +53,13 @@
         if(!empty($option))
             $stmt = $db -> query('select * from cd_list order by ' . $option . ' asc limit ' . $page_index * $page_size . ',' . $page_size);
         else $stmt = $db -> query('select * from cd_list limit ' . $page_index * $page_size . ',' . $page_size);
-        return $stmt->fetchAll(PDO::FETCH_NAMED);
+        $result = $stmt->fetchAll(PDO::FETCH_NAMED);
+        //顺便计算一下总页数，处理如何显示分页导航的任务就交给jquery了，减轻服务端的计算量
+
+        $stmt = $db -> query('select count(*) from cd_list');
+        $cd_num = ($stmt->fetch())[0];
+        array_push($result,array('page_num'=>intval($cd_num / $page_size)));
+
+        return $result;
     }
 ?>

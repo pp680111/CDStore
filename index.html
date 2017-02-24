@@ -67,6 +67,7 @@
         
         var page_index = 0;
         var page_size = 12;
+        var page_num = 0;
         var option = '';
 
         function get_cd_table()
@@ -80,12 +81,20 @@
                 {
                     var content = '<tr>';
                     $.each(data,function(i,obj){
+                        if(i >= page_size)
+                        {
+                            page_num = obj.page_num;
+                            return;
+                        }
                         if(i % 4 == 0 && i != 0)
                             content += "</tr><tr>";
                         content += "<td><a href='cd_detail?id=" + obj.id + "'><img src='/static/img/cover/" + obj.id + ".jpg' width='200px' height='200px'></a><p>" + obj.name + "</p><p>" + obj.artist + "</p></td>";
                     });
                     content += "</tr>";
                     $("#cd_table > tbody").html(content);
+
+                    //获取分页导航条
+                    set_page_nav();
                 },
                 error:function(){
                     alert('网络异常，请稍后再试');
@@ -93,32 +102,23 @@
             });
         }
 
-        function get_page_nav()
+        function set_page_nav()
         {
-            $.ajax({
-                url:'get_page_nav.php',
-                type:'post',
-                data:{'page_index':page_index,'page_size':page_size},
-                dataType:'json',
-                success:function(data)
-                {   
-                    var content = '';
-                    $.each(data,function(i,obj){
-                        content += obj;
-                    }); 
+            var content = '';
+            if(page_index == 0)
+                content += "<li class='disabled'><span aria-hidden='true'>&laquo;</span></li>";
+            else content += "<li><span aria-hidden='true'>&laquo;</span></li>";
 
-                    $("#page_nav > ul").html(content);
+            for(var i=0;i <= page_num;i++)
+                if(i == page_index)
+                    content += "<li class='active'><span>" + (parseInt(i)+1) + "</span></li>";
+                else content += "<li><span>" + (parseInt(i)+1) + "</span></li>";
 
-                    $("#page_nav > ul > li:not(:first,:last)").click(function(){
-                        page_index = $(this).text();
-                        get_cd_table({'option':option,'page_index':page_index,'page_size':page_size});
-                        get_page_nav();
-                    })
-                },
-                error:function(){
-                    alert('网络异常，请稍后再试');
-                }
-            })
+            if(page_num == page_index)
+                content += "<li class='disabled'><span aria-hidden='true'>&laquo;</span></li>";
+            else content += "<li><span aria-hidden='true'>&raquo;</span></li>";  
+
+            $("#page_nav > ul").html(content);
         }
 
         $(".order_controll > li").click(function(){
@@ -128,8 +128,6 @@
 
         $(function(){
             get_cd_table();
-            //获取分页导航条
-            get_page_nav();
         })
     </script>
 </body>
