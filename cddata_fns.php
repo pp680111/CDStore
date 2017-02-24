@@ -50,7 +50,9 @@
     function get_sorted_list($option)
     {
         $db = get_db_connection();
-        $stmt = $db -> query('select * from cd_list order by ' . $option . ' asc');
+        if(isset ($option))
+            $stmt = $db -> query('select * from cd_list order by ' . $option . ' asc');
+        else $stmt = $db -> query('select * from cd_list');
         return $stmt->fetchAll(PDO::FETCH_NAMED);
     }
 ?>

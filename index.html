@@ -1,7 +1,6 @@
 <?php 
     require_once('CDStore_fns.php');
     $recommend_list = get_recommend_list();
-    $cd_list = get_cd_list();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,21 +46,6 @@
                         <h3>唱片列表</h3>
                         <table class="table cd_table" id="cd_table">
                             <tbody>
-                                <?php
-                                    $i = 0;
-                                    echo '<tr>';
-                                    foreach($cd_list as $cd)
-                                    {
-                                        if($i == 4)
-                                        {
-                                            echo '</tr><tr>';
-                                            $i = 0;
-                                        }
-                                        echo "<td><a href='cd_detail.php?id={$cd['id']}'><img src='/static/img/cover/{$cd['id']}.jpg' width='200px' height='200px'></a><p>{$cd['name']}</p><p>{$cd['artist']}</p></td>";
-                                        $i++;
-                                    }
-                                    echo '</tr>';
-                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -76,6 +60,17 @@
     <script src="/static/js/my_slide.js"></script>
     <script>
         $(".my_slide").mySlide({speed:500});
+        
+        var display_cd_table = function(data){
+            var content = '<tr>';
+            $.each(data,function(i,obj){
+                if(i % 4 == 0 && i != 0)
+                    content += "</tr><tr>";
+                content += "<td><a href='cd_detail?id=" + obj.id + "'><img src='/static/img/cover/" + obj.id + ".jpg' width='200px' height='200px'></a><p>" + obj.name + "</p><p>" + obj.artist + "</p></td>";
+            });
+            content += "</tr>";
+            $("#cd_table > tbody").html(content);
+        }
 
         $(".order_controll > li").click(function(){
              $.ajax({
@@ -85,14 +80,22 @@
                 dataType:'json',
                 success:function(data)
                 {
-                    var content = '<tr>';
-                    $.each(data,function(i,obj){
-                        if(i % 4 == 0 && i != 0)
-                            content += "</tr><tr>";
-                        content += "<td><a href='cd_detail?id=" + obj.id + "'><img src='/static/img/cover/" + obj.id + ".jpg' width='200px' height='200px'></a><p>" + obj.name + "</p><p>" + obj.artist + "</p></td>";
-                    });
-                    content += "</tr>";
-                    $("#cd_table > tbody").html(content);
+                    display_cd_table(data)
+                },
+                error:function(){
+                    alert('网络异常，请稍后再试');
+                }
+            });
+        })
+
+        $(function(){
+            $.ajax({
+                url:'get_sorted_list.php',
+                type:'post',
+                dataType:'json',
+                success:function(data)
+                {
+                    display_cd_table(data)
                 },
                 error:function(){
                     alert('网络异常，请稍后再试');
