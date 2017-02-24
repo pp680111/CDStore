@@ -48,15 +48,8 @@
                             <tbody>
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation" class="page_nav">
+                        <nav aria-label="Page navigation" id="page_nav">
                             <ul class="pagination pagination-lg">
-                                <li><a href="#" aria-label="Prev"><span aria-hidden="true">&laquo;</span></a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#" aria-label="Prev"><span aria-hidden="true">&raquo;</span></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -73,6 +66,9 @@
         $(".my_slide").mySlide({speed:500});
         
         var page_index = 0;
+        var page_size = 12;
+
+        
 
         var display_cd_table = function(data){
             var content = '<tr>';
@@ -89,11 +85,11 @@
              $.ajax({
                 url:'get_sorted_list.php',
                 type:'post',
-                data:{'option':$(this).attr('id').substring(8),'page_index':page_index},
+                data:{'option':$(this).attr('id').substring(8),'page_index':page_index,'page_size':page_size},
                 dataType:'json',
                 success:function(data)
                 {
-                    display_cd_table(data)
+                    display_cd_table(data);
                 },
                 error:function(){
                     alert('网络异常，请稍后再试');
@@ -105,16 +101,39 @@
             $.ajax({
                 url:'get_sorted_list.php',
                 type:'post',
-                data:{'page_index':page_index},
+                data:{'page_index':page_index,'page_size':page_size},
                 dataType:'json',
                 success:function(data)
                 {
-                    display_cd_table(data)
+                    display_cd_table(data);
                 },
                 error:function(){
                     alert('网络异常，请稍后再试');
                 }
             });
+            //获取分页导航条
+            $.ajax({
+                url:'get_page_nav.php',
+                type:'post',
+                data:{'page_index':page_index,'page_size':page_size},
+                dataType:'json',
+                success:function(data)
+                {   
+                    var content = '';
+                    $.each(data,function(i,obj){
+                        content += obj;
+                    }); 
+
+                    $("#page_nav > ul").html(content);
+
+                    $("#page_nav > ul > li:not(:first,:last)").click(function(){
+
+                    })
+                },
+                error:function(){
+                    alert('网络异常，请稍后再试');
+                }
+            })
         })
     </script>
 </body>
