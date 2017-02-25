@@ -1,6 +1,7 @@
 <?php 
     require_once('header.php');
     require_once('CDStore_fns.php');
+    session_start();
     $cd_detail = get_cd_detail($_REQUEST['id']);
 ?>
 
@@ -12,6 +13,11 @@
                     <li>
                         <h4>专辑封面</h4>
                         <img src="static/img/cover/<?php echo $cd_detail['id'] ?>.jpg" alt="图片缺失" width="200px" height="200px">
+                        <div class="shop_area">
+                            <p>售价：<?php echo $cd_detail['price']; ?></p>
+                            <button class="btn btn-default">添加到购物车</button>
+                            <a class="btn btn-default" href="cart.php">去购物车结算</a>
+                        </div>
                     </li>
                     <li>
                         <h4>专辑名</h4>

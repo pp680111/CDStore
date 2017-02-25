@@ -91,3 +91,14 @@ body
 {
     text-align: center;
 }
+.cart_area
+{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+}
+.shop_area
+{
+    display: block;
+    float:right;
+}

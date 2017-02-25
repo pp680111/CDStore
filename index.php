@@ -1,5 +1,8 @@
 <?php 
     require_once('CDStore_fns.php');
+    session_start();
+    if(!isset($_SESSION['total_price']))
+        $_SESSION['total_price'] = 0;
     $recommend_list = get_recommend_list();
 ?>
 <!DOCTYPE html>
@@ -41,6 +44,10 @@
                             <li class="list-group-item" id="sort_by_artist">按艺术家名排序</li>
                             <li class="list-group-item" id="sort_by_create_time">按上架时间排序</li>
                         </ul>
+                        <div class="cart_area">
+                            <p>当前购物车总额：<?php echo $_SESSION['total_price']?></p>
+                            <a class="btn btn-default" href="cart.php">去购物车结算</a>
+                        </div>
                     </div>
                     <div class="col-xs-10">
                         <h3>唱片列表</h3>
@@ -66,7 +73,7 @@
         $(".my_slide").mySlide({speed:500});
         
         var page_index = 0;
-        var page_size = 12;
+        var page_size = 100;
         var page_num = 0;
         var option = '';
 
@@ -81,45 +88,51 @@
                 {
                     var content = '<tr>';
                     $.each(data,function(i,obj){
-                        if(i >= page_size)
-                        {
-                            page_num = obj.page_num;
-                            return;
-                        }
                         if(i % 4 == 0 && i != 0)
                             content += "</tr><tr>";
-                        content += "<td><a href='cd_detail?id=" + obj.id + "'><img src='/static/img/cover/" + obj.id + ".jpg' width='200px' height='200px'></a><p>" + obj.name + "</p><p>" + obj.artist + "</p></td>";
+                        content += "<td><a href='cd_detail.php?id=" + obj.id + "'><img src='/static/img/cover/" + obj.id + ".jpg' width='200px' height='200px'></a><p>" + obj.name + "</p><p>" + obj.artist + "</p></td>";
                     });
                     content += "</tr>";
                     $("#cd_table > tbody").html(content);
-
-                    //获取分页导航条
-                    set_page_nav();
                 },
                 error:function(){
                     alert('网络异常，请稍后再试');
                 }
             });
         }
+        //分页就暂时先搁置着
+        // function set_page_nav()
+        // {
 
-        function set_page_nav()
-        {
-            var content = '';
-            if(page_index == 0)
-                content += "<li class='disabled'><span aria-hidden='true'>&laquo;</span></li>";
-            else content += "<li><span aria-hidden='true'>&laquo;</span></li>";
+        //     var content = '';
+        //     var max_nav_num = 0;
 
-            for(var i=0;i <= page_num;i++)
-                if(i == page_index)
-                    content += "<li class='active'><span>" + (parseInt(i)+1) + "</span></li>";
-                else content += "<li><span>" + (parseInt(i)+1) + "</span></li>";
+        //     //这段代码想要实现的是让分页导航条最多只显示5个，当剩下的页面不足5个是如实显示
+        //     if(page_num > (parseInt(page_index) + 5))
+        //         max_nav_num = (parseInt(page_index) + 5);
+        //     else max_nav_num = page_num;
 
-            if(page_num == page_index)
-                content += "<li class='disabled'><span aria-hidden='true'>&laquo;</span></li>";
-            else content += "<li><span aria-hidden='true'>&raquo;</span></li>";  
+        //     if(page_index == 0)
 
-            $("#page_nav > ul").html(content);
-        }
+        //         content += "<li class='disabled'><span aria-hidden='true'>&laquo;</span></li>";
+        //     else content += "<li><span aria-hidden='true'>&laquo;</span></li>";
+
+        //     for(var i = page_index;i < max_nav_num;i++)
+        //         if(i == page_index)
+        //             content += "<li class='active'><span>" + (parseInt(i)+1) + "</span></li>";
+        //         else content += "<li><span>" + (parseInt(i)+1) + "</span></li>";
+
+        //     if(page_num == page_index)
+        //         content += "<li class='disabled'><span aria-hidden='true'>&laquo;</span></li>";
+        //     else content += "<li><span aria-hidden='true'>&raquo;</span></li>";  
+
+        //     $("#page_nav > ul").html(content);
+
+        //     $("#page_nav > ul > li:not(:first,:last)").click(function(){
+        //         page_index = parseInt($(this).text()) - 1;
+        //         get_cd_table();
+        //     });
+        // }
 
         $(".order_controll > li").click(function(){
             option = $(this).attr('id').substring(8)
